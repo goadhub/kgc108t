@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Market Brief — Business & Finance News</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #1a1a1a;
+    background: #f7f6f3;
+    line-height: 1.6;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    background: #fff;
+    border-bottom: 1px solid #e2e0da;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .topbar {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 18px 24px 10px;
+    text-align: center;
+  }
+
+  .topbar h1 {
+    font-size: 30px;
+    letter-spacing: 2px;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+  .topbar h1 span { color: #a3241c; }
+
+  .topbar p {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8780;
+    margin-top: 4px;
+  }
+
+  nav {
+    border-top: 1px solid #e2e0da;
+    border-bottom: 1px solid #e2e0da;
+  }
+
+  nav ul {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 28px;
+  }
+
+  nav a {
+    display: block;
+    padding: 12px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #444;
+  }
+
+  nav a:hover { color: #a3241c; }
+
+  /* ---------- Layout ---------- */
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 48px;
+  }
+
+  /* ---------- Lead story ---------- */
+  .lead {
+    background: #fff;
+    border: 1px solid #e2e0da;
+    padding: 28px;
+    margin-bottom: 40px;
+  }
+
+  .kicker {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #a3241c;
+    margin-bottom: 10px;
+  }
+
+  .lead h2 {
+    font-size: 32px;
+    line-height: 1.25;
+    font-weight: normal;
+    margin-bottom: 14px;
+  }
+
+  .lead h2 a { color: #1a1a1a; text-decoration: none; }
+  .lead h2 a:hover { color: #a3241c; }
+
+  .lead .dek {
+    font-size: 17px;
+    color: #4a4842;
+    margin-bottom: 16px;
+  }
+
+  .byline {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #8a8780;
+    border-top: 1px solid #eeede9;
+    padding-top: 12px;
+  }
+
+  /* ---------- Article list ---------- */
+  .section-title {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+  }
+
+  .story {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e2e0da;
+  }
+
+  .story:last-child { border-bottom: none; }
+
+  .story .thumb {
+    flex: 0 0 120px;
+    height: 84px;
+    background: #ddd9d0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #8a8780;
+    text-transform: uppercase;
+  }
+
+  .story h3 {
+    font-size: 19px;
+    font-weight: normal;
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+
+  .story h3 a { color: #1a1a1a; text-decoration: none; }
+  .story h3 a:hover { color: #a3241c; }
+
+  .story p {
+    font-size: 14.5px;
+    color: #5a5852;
+    margin-bottom: 6px;
+  }
+
+  .story .meta {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    color: #9a9790;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  /* ---------- Sidebar ---------- */
+  aside .box {
+    background: #fff;
+    border: 1px solid #e2e0da;
+    padding: 20px;
+    margin-bottom: 28px;
+  }
+
+  aside h4 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e2e0da;
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+  }
+
+  /* Market ticker table */
+  .ticker {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+  }
+
+  .ticker td {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0efeb;
+  }
+
+  .ticker tr:last-child td { border-bottom: none; }
+
+  .ticker .name { color: #444; }
+
+  .ticker .val {
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .up { color: #1a7a3c; }
+  .down { color: #a3241c; }
+
+  /* Most read */
+  .most-read { list-style: none; counter-reset: rank; }
+
+  .most-read li {
+    counter-increment: rank;
+    position: relative;
+    padding: 12px 0 12px 34px;
+    border-bottom: 1px solid #f0efeb;
+    font-size: 14.5px;
+    line-height: 1.4;
+  }
+
+  .most-read li:last-child { border-bottom: none; }
+
+  .most-read li::before {
+    content: counter(rank);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #d8d5cd;
+  }
+
+  .most-read a { color: #1a1a1a; text-decoration: none; }
+  .most-read a:hover { color: #a3241c; }
+
+  /* Newsletter box */
+  .newsletter {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 22px;
+    margin-bottom: 28px;
+  }
+
+  .newsletter h4 {
+    color: #fff;
+    border-bottom-color: #3a3a3a;
+  }
+
+  .newsletter p {
+    font-size: 14px;
+    color: #c9c7c2;
+    margin-bottom: 14px;
+  }
+
+  .newsletter input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .newsletter button {
+    width: 100%;
+    padding: 11px;
+    background: #a3241c;
+    color: #fff;
+    border: none;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .newsletter button:hover { background: #8a1d16; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: #1a1a1a;
+    color: #8a8780;
+    padding: 36px 24px;
+  }
+
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+  }
+
+  footer a {
+    color: #c9c7c2;
+    text-decoration: none;
+    margin-left: 18px;
+  }
+
+  footer a:hover { color: #fff; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 820px) {
+    .container { grid-template-columns: 1fr; gap: 32px; }
+    .lead h2 { font-size: 25px; }
+    .story .thumb { display: none; }
+    nav ul { gap: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <h1>The Market <span>Brief</span></h1>
+    <p>Business &amp; Finance · New York</p>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#">Markets</a></li>
+      <li><a href="#">Economy</a></li>
+      <li><a href="#">Tech</a></li>
+      <li><a href="#">Personal Finance</a></li>
+      <li><a href="#">Policy</a></li>
+      <li><a href="#">Opinion</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="container">
+
+  <!-- MAIN COLUMN -->
+  <main>
+
+    <!-- Lead story -->
+    <article class="lead">
+      <div class="kicker">Top Story</div>
+      <h2><a href="#">Fed Holds Rates Steady, Signals Two Cuts Before Year-End</a></h2>
+      <p class="dek">
+        Policymakers left the benchmark rate unchanged at 4.25%–4.50% on Wednesday,
+        but updated projections pointed to a slower path of inflation and a
+        willingness to ease if the labor market cools further.
+      </p>
+      <p class="byline">By Daniel Whitmore · Markets · 6 min read</p>
+    </article>
+
+    <!-- Latest news -->
+    <div class="section-title">Latest News</div>
+
+    <article class="story">
+      <div class="thumb">Markets</div>
+      <div>
+        <h3><a href="#">S&amp;P 500 Closes at Record High as Chip Stocks Rally</a></h3>
+        <p>The index gained 1.2% on Thursday, led by semiconductor names after a
+           stronger-than-expected earnings report from a major supplier.</p>
+        <div class="meta">2 hours ago · 4 min read</div>
+      </div>
+    </article>
+
+    <article class="story">
+      <div class="thumb">Economy</div>
+      <div>
+        <h3><a href="#">Consumer Prices Rise 2.4% Year-Over-Year, Easing Fears</a></h3>
+        <p>Core inflation, which strips out food and energy, came in slightly below
+           forecasts — a welcome sign for households and for the Fed.</p>
+        <div class="meta">5 hours ago · 3 min read</div>
+      </div>
+    </article>
+
+    <article class="story">
+      <div class="thumb">Tech</div>
+      <div>
+        <h3><a href="#">AI Spending Lifts Cloud Revenue for Big Three Providers</a></h3>
+        <p>Combined cloud revenue topped $90 billion for the quarter, as enterprise
+           customers continue to shift budgets toward artificial intelligence.</p>
+        <div class="meta">Yesterday · 5 min read</div>
+      </div>
+    </article>
+
+    <article class="story">
+      <div class="thumb">Policy</div>
+      <div>
+        <h3><a href="#">Treasury Yields Slip as Investors Weigh Debt Ceiling Talks</a></h3>
+        <p>The 10-year note fell to 4.12% after lawmakers signaled progress on a
+           spending agreement ahead of next month's deadline.</p>
+        <div class="meta">Yesterday · 4 min read</div>
+      </div>
+    </article>
+
+    <article class="story">
+      <div class="thumb">Personal</div>
+      <div>
+        <h3><a href="#">Mortgage Rates Dip Below 6% for the First Time in a Year</a></h3>
+        <p>Falling borrowing costs are pulling buyers back into the housing market,
+           though inventory remains tight in most metro areas.</p>
+        <div class="meta">2 days ago · 3 min read</div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside>
+
+    <div class="box">
+      <h4>Market Snapshot</h4>
+      <table class="ticker">
+        <tr>
+          <td class="name">S&amp;P 500</td>
+          <td class="val up">+1.24%</td>
+        </tr>
+        <tr>
+          <td class="name">Nasdaq</td>
+          <td class="val up">+1.68%</td>
+        </tr>
+        <tr>
+          <td class="name">Dow Jones</td>
+          <td class="val up">+0.71%</td>
+        </tr>
+        <tr>
+          <td class="name">10-Yr Treasury</td>
+          <td class="val down">4.12%</td>
+        </tr>
+        <tr>
+          <td class="name">Crude Oil</td>
+          <td class="val down">$71.40</td>
+        </tr>
+        <tr>
+          <td class="name">Bitcoin</td>
+          <td class="val up">$96,820</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="newsletter">
+      <h4>The Morning Brief</h4>
+      <p>Get the top finance stories in your inbox before the opening bell.</p>
+      <input type="email" placeholder="you@example.com">
+      <button type="button">Sign Up Free</button>
+    </div>
+
+    <div class="box">
+      <h4>Most Read</h4>
+      <ol class="most-read">
+        <li><a href="#">What the Fed's New Projections Mean for Your Savings Account</a></li>
+        <li><a href="#">Three Signs the Housing Market Is Finally Thawing</a></li>
+        <li><a href="#">Inside the Record Quarter for U.S. Banks</a></li>
+        <li><a href="#">Why Dividend Stocks Are Back in Favor</a></li>
+        <li><a href="#">A Beginner's Guide to Roth IRA Conversions</a></li>
+      </ol>
+    </div>
+
+  </aside>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 The Market Brief. All rights reserved.</div>
+    <div>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
